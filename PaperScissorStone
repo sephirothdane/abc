@@ -1,0 +1,139 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+
+
+int Playerdifficulty;
+bool systemSound;
+bool game_inSession;
+bool gameOver = false;
+int playerTries = NULL;
+int level=NULL;
+int points=NULL;
+
+void StartScreen(){
+    int UserChoice;
+    printf("1.START.\n2.QUIT.");
+    scanf("%d", &UserChoice);
+    if(UserChoice == 1){
+        start();
+    }else if(UserChoice == 2){
+        mainMenu();
+    }else{
+        printf("Invalid Choice");
+        StartScreen();
+    }
+}
+int getPlayerTries(){
+    return playerTries;
+    }
+int getPoints(){
+        return points;
+    }
+void setDifficulty(){
+    int setLevel;
+    printf("\nSELECT THE LEVEL OF DIFFICULTY: ");
+    printf("\n1. LEVEL 1.\n2. LEVEL 2.\n3. LEVEL 3.");
+    scanf("%d", &setLevel);
+    if(setLevel == 1){
+        level =1;
+        printf("\nLevel 1 difficulty selected", level);
+    }else if(setLevel == 2){
+        level = 2;
+        printf("\nLevel 2 difficulty selected", level);
+    }else if(setLevel ==3){
+        level = 3;
+        printf("\nLevel 3 difficulty selected" ,level);
+    }else{
+        printf("Invalid Selection.");
+        printf("Please try again.");
+        setDifficulty();
+    }
+}
+
+int getPlayerLevel(){
+    return level;
+}
+void setSound(){
+    int soundOption;
+    bool soundSystem;
+    printf("Sound Menu");
+    printf("\n1.Sound On.\n2.Sound Off");
+    scanf("%d", &soundOption);
+    if(soundOption == 1){
+        soundSystem = true;
+    }else if(soundOption==2){
+        soundSystem = false;
+    }else{
+        printf("Invalid Selection");
+        setSound();
+    }
+}
+void OptionsMenu(){
+    int menuChoice;
+    if(menuChoice == 1){
+        setDifficulty();
+    }else if(menuChoice == 2){
+        setSound();
+    }
+}
+
+void gameOverScreen(){
+    int voidSpace;
+    int gameOverChoice;
+    printf("WOULD YOU LIKE TO CONTINUE? ");
+    printf("\n1.YES.\n2.NO.");
+    scanf("%d",&gameOverChoice);
+    if(gameOverScreen == 1){
+        printf("You have chosen to continue the game.");
+        printf("Some points will be deducted from your overall score.");
+        start();
+    }else if(gameOverChoice == 2){
+        printf("Your game is now over.");
+        printf("Press any key to return to the main menu.");
+        scanf("%d", voidSpace);
+        mainMenu();
+    }
+}
+void start(){
+    srand(100);
+    int turn = rand() % 2;
+    bool playerFirst;
+    if(turn == 1){
+        playerFirst = true;
+    }else{
+        playerFirst = false;
+    }
+    int playerChoice;
+    int playerTurn=3;
+    game_inSession = true;
+    while(game_inSession == true && gameOver == false){
+        if(gameOver == true || playerTries == 0){
+        game_inSession = false;
+        printf("YOU LOSE");
+        gameOverScreen();
+    }
+}
+
+}
+
+
+
+void mainMenu(){
+int UserChoice=NULL;
+    printf("\nWELCOME TO THE GAME");
+    printf("\nPLEASE CHOOSE FROM ONE OF THE FOLLOWING OPTIONS:");
+    printf("\n1.START GAME.\n2.OPTIONS.\n3.HELP\n4.QUIT.");
+    scanf("%d", &UserChoice);
+    if(UserChoice == 1){
+        StartScreen();
+    }else if (UserChoice == 2){
+        OptionsMenu();
+    }
+}
+
+int main() {
+    //mainMenu();
+    setDifficulty();
+}
